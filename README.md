@@ -1,7 +1,7 @@
 # Boolean Algebra Toolkit
 
-1. Boolean Expression Evaluator and Truth Table Generator
-2. Truth Table to Boolean Expression and Logic Diagram Generator
+- Truth Table to Boolean Expression and Logic Diagram Generator
+- Boolean Expression Evaluator and Truth Table Generator
 
 # Installation
 
@@ -12,47 +12,25 @@ pip install -r requirements.txt \
 python main.py --help
 ```
 
-# 1. Boolean Expression Evaluator and Truth Table Generator
-
-```
-$ python main.py expression
- > Enter an expression: <expression>
- <expression truth table>
-    A | B | C | Output
-    ------------------
-    0 | 0 | 0 |   1
-    0 | 0 | 1 |   0
-    0 | 1 | 0 |   1
-    0 | 1 | 1 |   0
-    1 | 0 | 0 |   1
-    1 | 0 | 1 |   0
-    1 | 1 | 0 |   1
-    1 | 1 | 1 |   1
-```
-Afterwards, the user gets a prompt to produce a logic diagram
-```
- $ Would you like to generate a logic diagram for <expression>? (y/n)
-```
-After which it produces a png in the root directory
-
-# 2. Truth table to Boolean Expression and Logic Diagram
+# Truth table to Boolean Expression and Logic Diagram
 This section deals with converting a given truth table to a minimized boolean expression using the [Quine-McCluskey algorithm](https://en.wikipedia.org/wiki/Quine%E2%80%93McCluskey_algorithm) and producing a logic diagram.
 
 ## Overview
-1. Initialize variables and [Minterms](https://en.wikipedia.org/wiki/Canonical_normal_form#Minterm)
-2. Generate prime implicants
-3. Identify essential [Prime implicants](https://en.wikipedia.org/wiki/Implicant)
-4. Minimize the boolean function
-5. Synthesize the boolean expression
-6. Generate the logic diagram (Optional)
+1. Initialize variables & [Minterms](https://en.wikipedia.org/wiki/Canonical_normal_form#Minterm)
+2. Identify essential [Prime implicants](https://en.wikipedia.org/wiki/Implicant)
+3. Minimize & Synthesize the boolean function
+4. Generate the logic diagram (Optional)
 
-## 1. Initialization
+### 1. Initialization
 
 - The synthesizer is initialized with a list of character variables and [minterms](https://en.wikipedia.org/wiki/Canonical_normal_form#Minterm):
 - [Minterms](https://en.wikipedia.org/wiki/Canonical_normal_form#Minterm) refer to values for which the output is 1.
 -  [Prime implicants](https://en.wikipedia.org/wiki/Implicant) are found by repeatedly combining minterms that differ by only one variable:
 
 ```
+
+           The Quine-McCluskey Algorithm
+
 +-----------------------------------+
 | initialize variables and minterms |
 | variables := [A, B, C]            |
@@ -130,7 +108,32 @@ This section deals with converting a given truth table to a minimized boolean ex
               |         ~(ABC) + BC + AB                |
               +-----------------------------------------+
 
+
 ```
 
 if the `-d` or `--diagram` flag is set, the boolean expression is parsed and converted into a logic diagram:
+
+# Boolean Expression Evaluator and Truth Table Generator
+
+```
+$ python main.py expression
+ > Enter an expression: <expression>
+ <expression truth table>
+    A | B | C | Output
+    ------------------
+    0 | 0 | 0 |   1
+    0 | 0 | 1 |   0
+    0 | 1 | 0 |   1
+    0 | 1 | 1 |   0
+    1 | 0 | 0 |   1
+    1 | 0 | 1 |   0
+    1 | 1 | 0 |   1
+    1 | 1 | 1 |   1
+```
+Afterwards, the user gets a prompt to produce a logic diagram
+```
+ $ Would you like to generate a logic diagram for <expression>? (y/n)
+```
+After which it produces a png in the root directory
+
 
