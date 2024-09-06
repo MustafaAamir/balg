@@ -52,6 +52,7 @@ This section deals with converting a given truth table to a minimized boolean ex
 - [Minterms](https://en.wikipedia.org/wiki/Canonical_normal_form#Minterm) refer to values for which the output is 1.
 -  [Prime implicants](https://en.wikipedia.org/wiki/Implicant) are found by repeatedly combining minterms that differ by only one variable:
 
+```
 +-----------------------------------+
 | initialize variables and minterms |
 | variables := [A, B, C]            |
@@ -129,6 +130,7 @@ This section deals with converting a given truth table to a minimized boolean ex
               |         ~(ABC) + BC + AB                |
               +-----------------------------------------+
 
+```
 
 if the `-d` or `--diagram` flag is set, the boolean expression is parsed and converted into a logic diagram:
 
