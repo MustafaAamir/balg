@@ -1,0 +1,11 @@
+// Logic Gate Diagram
+digraph {
+	rankdir=LR
+	var_A [label=A shape=circle]
+	var_B [label=B shape=circle]
+	or_0 [label=OR shape=rectangle]
+	var_A -> or_0
+	var_B -> or_0
+	result [label=Result shape=doublecircle]
+	or_0 -> result
+}
