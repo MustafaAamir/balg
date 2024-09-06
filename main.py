@@ -1,55 +1,56 @@
-from colorama import Fore
+from colorama import Fore, init, Style
 import sys
 from synthesizer import TruthTableSynthesizer
-from expression  import BooleanExpression
+from expression import BooleanExpression
+import argparse
 
-
-def expression_to_tt_and_diagram():
-    input_expression = input(" $ ")
+def expression_to_tt_and_diagram(diagram_print: bool):
+    input_expression = input(f"{Fore.GREEN} $ {Style.RESET_ALL}Enter expression: ")
     expr = BooleanExpression(input_expression)
-    expr.print_truth_table()
-    print_diagram_a = input(Fore.BLUE + " (?) produce diagram? (y/n) " + Fore.WHITE)
-    if (print_diagram_a.lower() == "y"):
+    print(f"{expr.print_truth_table()}")
+    if (diagram_print):
+        print(f"{Fore.MAGENTA} $ {Style.RESET_ALL}Generating logic diagram...")
         diagram = expr.generate_logic_diagram()
-        diagram.render(f"logic_diagram")
+        diagram.render("logic_diagram", format='png', cleanup=True)
+        print(f"{Fore.GREEN} $ {Style.RESET_ALL}Logic gate diagram saved as 'logic_diagram.png'")
 
-def tt_to_expression_and_diagram():
-    variables = input("Enter variables: ").split()
-    looping = True
-    minterms = []
-    while (looping):
-        minterm = input("Enter binary value for which output is 1, q to exit: ")
-        if (minterm == "q"):
-            break
-        else:
-            if (int(minterm, 2) > 2**len(variables)):
-                print("Value is higher than 2 power {}", len(variables))
-            else:
-                minterms.append(int(minterm, 2))
-
+def tt_to_expression_and_diagram(print_diagram: bool):
+    variables = input(f"{Fore.GREEN} $ {Style.RESET_ALL}Enter variables (comma-separated): ").split(',')
+    minterms = input(f"{Fore.GREEN} $ {Style.RESET_ALL}Enter minterms (comma-separated): ").replace(' ', '').split(',')
+    minterms = [int(i, 2) for i in minterms]
     synthesizer = TruthTableSynthesizer(variables, minterms)
     expression = synthesizer.synthesize()
-    print(f"Synthesized Boolean Expression: {expression}")
-
-    print_diagram_a = input(Fore.BLUE + " (?) produce diagram? (y/n) " + Fore.WHITE)
-    if (print_diagram_a.lower() == "y"):
-        diagram = synthesizer.generate_logic_diagram(expression)
+    print(f" > Generated Boolean Expression: {expression}")
+    if (print_diagram):
+        print(f"{Fore.MAGENTA} $ Generating logic diagram from truth table...{Style.RESET_ALL}")
+        expr = BooleanExpression(expression)
+        diagram = expr.generate_logic_diagram()
         diagram.render('synthesized_logic_diagram', format='png', cleanup=True)
-        print("Logic gate diagram saved as 'synthesized_logic_diagram.png'")
+        print(f"{Fore.GREEN} $ {Style.RESET_ALL}Logic gate diagram saved as 'synthesized_logic_diagram.png'")
 
-def print_help():
-    print("""
-          usage:
+def main():
+    init(autoreset=True)
+    parser = argparse.ArgumentParser(
+        description='Logic Gate Expression and Truth Table Processor',
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    parser.add_argument('mode', choices=['Expression', 'TruthTable'],
+                        help='Mode of operation:\n'
+                             'Expression: Parse and evaluate logic expressions\n'
+                             'TruthTable: Generate expressions from truth tables')
+    parser.add_argument('-d', '--diagram', action='store_true',
+                        help='Generate a logic diagram')
 
-          """)
+    args = parser.parse_args()
+
+    print(f"{Fore.CYAN}    Boolean Algebra Toolkit\n{Style.RESET_ALL}")
+
+    if args.mode == "Expression":
+        expression_to_tt_and_diagram(args.diagram)
+
+    if args.mode == "TruthTable":
+        tt_to_expression_and_diagram(args.diagram)
 
 if __name__ == "__main__":
-    if (len(sys.argv) == 2):
-        if (sys.argv[1] == "expr"):
-            expression_to_tt_and_diagram()
-        elif (sys.argv[1] == "tt"):
-            tt_to_expression_and_diagram()
-    else:
-        print_help()
-
+    main()
 
