@@ -169,6 +169,7 @@ class TruthTableSynthesizer(variables: List[str], minterms: List[int])
 ```
 ```python
 class BooleanExpression(expression: str)
+```
 ```python
 class Boolean()
 ```
