@@ -1,7 +1,7 @@
 from itertools import product
 from graphviz import Digraph
 import re
-from typing import Dict, Tuple, List, Any
+from typing import Dict, Tuple, List
 
 '''
 tokenize
@@ -29,7 +29,7 @@ class BooleanExpression:
         self.variables: List[str] = sorted(set(re.findall(r'\b[A-Za-z]\b', expression)))
         self.postfix = self.to_postfix(expression)
 
-    def to_postfix(self, infix) -> List[str]:
+    def to_postfix(self, infix: str) -> List[str]:
         precedence = {'~': 3, '&': 2, '+': 1, '(': 0, '^': 2}
         stack = []
         postfix = []
@@ -98,7 +98,7 @@ class BooleanExpression:
             table.append((row, result))
         return table
 
-    def tt(self):
+    def tt(self) -> str:
         output_str = ""
         table = self.truth_table()
         header = ' | '.join(self.variables + ['Res'])

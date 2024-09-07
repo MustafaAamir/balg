@@ -11,6 +11,56 @@ cd BooleanAlgebraToolkit \
 pip install -r requirements.txt \
 ```
 
+# Usage
+
+```python
+from boolean import Boolean
+booleanObject = Boolean()
+```
+1. To generate an expression's truth table:
+
+```python
+input_expression: str = "~(A & B & C)+(A & B)+(B & C)"
+tt: str = booleanObject.expr_to_tt(input_expression)
+```
+
+2. To generate an expression given the minterms and variables:
+
+```python
+variables: List[str] = ['A', 'B', 'C']
+minterms: List[int]  = [0, 1, 3, 7]
+expression: str   = booleanObject.tt_to_expr(variables, minterms)
+```
+
+3. To generate a logic diagram given an expression:
+
+```python
+input_expression: str = "~(A & B & C)+(A & B)+(B & C)"
+file_name: str = "logic_diagram12"
+format: str = "png"
+directory: str = "examples" # stores in the current directory by default
+booleanObject.expr_to_dg(input_expression, file_name, directory, format)
+```
+
+4. To generate a logic diagram given variables and minterms
+
+```python
+variables: List[str] = ['A', 'B', 'C']
+minterms: List[int]  = [0, 1, 3, 7]
+file_name: str = "logic_diagram12"
+directory: str = "examples"
+format: str = "png"
+booleanObject.tt_to_dg(variables, minterms, file_name, directory, format)
+```
+
+# Example Diagrams
+
+![logic_diagram](https://github.com/user-attachments/assets/5142ee73-0c51-4bcd-9730-0a33129cf72f)
+
+![logic_diagram](https://github.com/user-attachments/assets/ae681531-7076-445b-be9f-41bf98dff005)
+
+Other diagrams can be found in `examples/`
+
 # Explanation of the Quine-McCluskey Algorithm
 This section deals with converting a given truth table to a minimized boolean expression using the [Quine-McCluskey algorithm](https://en.wikipedia.org/wiki/Quine%E2%80%93McCluskey_algorithm) and producing a logic diagram.
 
@@ -112,62 +162,14 @@ This section deals with converting a given truth table to a minimized boolean ex
 
 ```
 
-# Usage
-
-```python
-from boolean import Boolean
-booleanObject = Boolean()
-```
-1. To generate an expression's truth table:
-
-```python
-input_expression: str = "~(A & B & C)+(A & B)+(B & C)"
-tt: str = booleanObject.expr_to_tt(input_expression)
-```
-
-2. To generate an expression given the minterms and variables:
-
-```python
-variables: List[str] = ['A', 'B', 'C']
-minterms: List[int]  = [0, 1, 3, 7]
-expression: str   = booleanObject.tt_to_expr(variables, minterms)
-```
-
-3. To generate a logic diagram given an expression:
-
-```python
-input_expression: str = "~(A & B & C)+(A & B)+(B & C)"
-file_name: str = "logic_diagram12"
-format: str = "png"
-directory: str = "examples" # stores in the current directory by default
-booleanObject.expr_to_dg(input_expression, file_name, directory, format)
-```
-
-4. To generate a logic diagram given variables and minterms
-
-```python
-variables: List[str] = ['A', 'B', 'C']
-minterms: List[int]  = [0, 1, 3, 7]
-file_name: str = "logic_diagram12"
-directory: str = "examples"
-format: str = "png"
-booleanObject.tt_to_dg(variables, minterms, file_name, directory, format)
-```
-
-# Example Diagrams
-
-![logic_diagram](https://github.com/user-attachments/assets/5142ee73-0c51-4bcd-9730-0a33129cf72f)
-
-![logic_diagram](https://github.com/user-attachments/assets/ae681531-7076-445b-be9f-41bf98dff005)
-
-Other diagrams can be found in `examples/`
-
-
 # Documentation (for developers)
 
 ``` python
 class TruthTableSynthesizer(variables: List[str], minterms: List[int])
+```
+```python
 class BooleanExpression(expression: str)
+```python
 class Boolean()
 ```
 
