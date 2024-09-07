@@ -1,5 +1,5 @@
-from synthesizer import TruthTableSynthesizer
-from expression  import BooleanExpression
+from .synthesizer import TruthTableSynthesizer
+from .expression  import BooleanExpression
 from typing import List
 
 class Boolean:
