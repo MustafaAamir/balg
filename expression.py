@@ -29,13 +29,11 @@ class BooleanExpression:
         self.variables: List[str] = sorted(set(re.findall(r'\b[A-Za-z]\b', expression)))
         self.postfix = self.to_postfix(expression)
 
-    def to_postfix(self, infix) -> List[Any]:
+    def to_postfix(self, infix) -> List[str]:
         precedence = {'~': 3, '&': 2, '+': 1, '(': 0, '^': 2}
         stack = []
         postfix = []
         tokens = re.findall(r'\b[A-Za-z]\b|\&|\+|\~|\^|[\(\)]', infix)
-        print(tokens)
-
         for token in tokens:
             if token in self.variables:
                 postfix.append(token)
@@ -100,7 +98,7 @@ class BooleanExpression:
             table.append((row, result))
         return table
 
-    def print_truth_table(self):
+    def tt(self):
         output_str = ""
         table = self.truth_table()
         header = ' | '.join(self.variables + ['Res'])

@@ -1,4 +1,5 @@
 from itertools import combinations
+from typing import List, Set, Tuple, Dict
 
 '''
 initialize variables and minterms
@@ -58,7 +59,7 @@ class TruthTableSynthesizer:
         # unnecesary
         self.max_iterations = 1000  # Safeguard against excessive looping
 
-    def decimal_to_binary(self, num):
+    def decimal_to_binary(self, num: int):
         return format(num, f'0{self.num_vars}b')
 
     def combine_implicants(self, implicants):
