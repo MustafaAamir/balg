@@ -6,7 +6,7 @@
 # Installation
 
 ```bash
-pip install balg==0.0.3
+pip install balg
 ```
 # Usage
 
