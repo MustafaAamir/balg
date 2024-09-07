@@ -6,8 +6,8 @@
 # Installation
 
 ```bash
-git clone https://www.github.com/MustafaAamir/BooleanAlgebraToolkit \
-cd BooleanAlgebraToolkit \
+git clone https://www.github.com/MustafaAamir/balg \
+cd balg \
 pip install -r requirements.txt \
 ```
 
