@@ -13,6 +13,14 @@ pip install -r requirements.txt \
 
 # Usage
 
+| **Token** | **Equivalent** |
+|:---------:|:--------------:|
+|     &     |       AND      |
+|     ^     |       XOR      |
+|     +     |       OR       |
+|     ~     |       NOT      |
+|   [A-z]   |    Variable    |
+
 ```python
 from boolean import Boolean
 booleanObject = Boolean()
@@ -161,6 +169,11 @@ This section deals with converting a given truth table to a minimized boolean ex
 
 
 ```
+
+# Tips
+1. Use parentheses when the order of operations are ambiguous.
+2. The precedence is as follows, starting from the highest: NOT -> OR -> (AND, XOR)
+3. Modify `BooleanExpression.tt` to produce markdown tables for a better UI
 
 # Documentation (for developers)
 
