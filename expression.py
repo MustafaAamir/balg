@@ -115,6 +115,7 @@ class BooleanExpression:
         dot.attr(rankdir='LR')
         node_count = 0
         stack = []
+        tokenDict = {'&': 'AND', '^': 'XOR', '+': 'OR', '~': 'NOT'}
         for token in self.postfix:
             if token in self.variables:
                 node_name = f'var_{token}'
@@ -130,8 +131,8 @@ class BooleanExpression:
             elif token in ('&', '+', '^'):
                 right = stack.pop()
                 left = stack.pop()
-                node_name = f'{token.lower()}_{node_count}'
-                dot.node(node_name, token, shape='component')
+                node_name = f'{tokenDict[token]}_{node_count}'
+                dot.node(node_name, tokenDict[token], shape='component')
                 # edge connects input nodes to gates i think
                 dot.edge(left, node_name)
                 dot.edge(right, node_name)
