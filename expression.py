@@ -102,7 +102,7 @@ class BooleanExpression:
     def print_truth_table(self):
         output_str = ""
         table = self.truth_table()
-        header = ' | '.join(self.variables + ['Result'])
+        header = ' | '.join(self.variables + ['Res'])
         output_str += header
         output_str += "\n" + ('-' * len(header)) + "\n"
         for row, result in table:
