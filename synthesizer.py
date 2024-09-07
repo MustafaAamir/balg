@@ -142,8 +142,8 @@ class TruthTableSynthesizer:
             if value == '1':
                 terms.append(var)
             elif value == '0':
-                terms.append(f'NOT {var}')
-        return ' AND '.join(terms) if terms else '1'
+                terms.append(f'~{var}')
+        return ' & '.join(terms) if terms else '1'
 
     def synthesize(self):
         # case where every output is NOT high
@@ -158,7 +158,7 @@ class TruthTableSynthesizer:
         minimal_implicants = self.minimize_function(prime_implicants, essential_implicants)
 
         expression_terms = [self.implicant_to_expression(imp) for imp in minimal_implicants]
-        expression = ' OR '.join(f'({term})' for term in expression_terms)
-
+        expression = ' + '.join(f'({term})' for term in expression_terms)
+        expression = expression.replace('  ', ' ')
         return expression
 

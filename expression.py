@@ -26,14 +26,15 @@ class BooleanExpression:
     def __init__(self, expression: str):
         self.expression: str = expression
         # isolates single character variables from expression and sorts them alphabetically
-        self.variables: List[str] = sorted(set(re.findall(r'\b[A-Z]\b', expression)))
+        self.variables: List[str] = sorted(set(re.findall(r'\b[A-Za-z]\b', expression)))
         self.postfix = self.to_postfix(expression)
 
     def to_postfix(self, infix) -> List[Any]:
-        precedence = {'NOT': 3, 'AND': 2, 'OR': 1, '(': 0, 'XOR': 2}
+        precedence = {'~': 3, '&': 2, '+': 1, '(': 0, '^': 2}
         stack = []
         postfix = []
-        tokens = re.findall(r'\b[A-Z]\b|\bAND\b|\bOR\b|\bNOT\b|\bXOR\b|[\(\)]', infix)
+        tokens = re.findall(r'\b[A-Za-z]\b|\&|\+|\~|\^|[\(\)]', infix)
+        print(tokens)
 
         for token in tokens:
             if token in self.variables:
@@ -59,15 +60,15 @@ class BooleanExpression:
         for token in self.postfix:
             if token in self.variables:
                 stack.append(values[token])
-            elif token == 'NOT':
+            elif token == '~':
                 stack.append(not stack.pop())
-            elif token == 'AND':
+            elif token == '&':
                 b, a = stack.pop(), stack.pop()
                 stack.append(a and b)
-            elif token == 'OR':
+            elif token == '+':
                 b, a = stack.pop(), stack.pop()
                 stack.append(a or b)
-            elif token == 'XOR':
+            elif token == '^':
                 b, a = stack.pop(), stack.pop()
                 stack.append(a != b)
 
@@ -121,14 +122,14 @@ class BooleanExpression:
                 node_name = f'var_{token}'
                 dot.node(node_name, token, shape='square')
                 stack.append(node_name)
-            elif token == 'NOT':
+            elif token == '~':
                 input_node = stack.pop()
                 node_name = f'not_{node_count}'
                 dot.node(node_name, 'NOT', shape='diamond')
                 dot.edge(input_node, node_name)
                 stack.append(node_name)
                 node_count += 1
-            elif token in ('AND', 'OR', 'XOR'):
+            elif token in ('&', '+', '^'):
                 right = stack.pop()
                 left = stack.pop()
                 node_name = f'{token.lower()}_{node_count}'
