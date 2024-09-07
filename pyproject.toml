@@ -16,6 +16,8 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/MustafaAamir/balg"
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/balg_MustafaAamir"]
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
