@@ -1,0 +1,23 @@
+[project]
+name = "balg_MustafaAamir"
+version = "0.0.1"
+authors = [
+    { name="Mustafa Aamir", email="mustafa.290101@gmail.com"},
+]
+description = "A boolean algebra toolkit to: evaluate expressions, truth tables, and produce logic diagrams"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/MustafaAamir/balg"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+

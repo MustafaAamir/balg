@@ -30,28 +30,31 @@ class BooleanExpression:
         self.postfix = self.to_postfix(expression)
 
     def to_postfix(self, infix: str) -> List[str]:
-        precedence = {'~': 3, '&': 2, '+': 1, '(': 0, '^': 2}
-        stack = []
-        postfix = []
-        tokens = re.findall(r'\b[A-Za-z]\b|\&|\+|\~|\^|[\(\)]', infix)
-        for token in tokens:
-            if token in self.variables:
-                postfix.append(token)
-            elif token == '(':
-                stack.append(token)
-            elif token == ')':
-                while stack and stack[-1] != '(':
-                    postfix.append(stack.pop())
-                stack.pop()  # Discard the '('
-            else:
-                while stack and precedence.get(stack[-1], 0) >= precedence.get(token, 0):
-                    postfix.append(stack.pop())
-                stack.append(token)
+        try:
+            precedence = {'~': 3, '&': 2, '+': 1, '(': 0, '^': 2}
+            stack = []
+            postfix = []
+            tokens = re.findall(r'\b[A-Za-z]\b|\&|\+|\~|\^|[\(\)]', infix)
+            for token in tokens:
+                if token in self.variables:
+                    postfix.append(token)
+                elif token == '(':
+                    stack.append(token)
+                elif token == ')':
+                    while stack and stack[-1] != '(':
+                        postfix.append(stack.pop())
+                    stack.pop()  # Discard the '('
+                else:
+                    while stack and precedence.get(stack[-1], 0) >= precedence.get(token, 0):
+                        postfix.append(stack.pop())
+                    stack.append(token)
 
-        while stack:
-            postfix.append(stack.pop())
-
-        return postfix
+            while stack:
+                postfix.append(stack.pop())
+            return postfix
+        except (IndexError):
+            print(f"\tError: '{infix}' is an invalid expression.")
+            exit(0)
 
     def evaluate(self, values: Dict[str, bool]) -> bool:
         stack: List[bool] = []
