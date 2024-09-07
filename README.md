@@ -6,11 +6,8 @@
 # Installation
 
 ```bash
-git clone https://www.github.com/MustafaAamir/balg \
-cd balg \
-pip install -r requirements.txt \
+pip install balg==0.0.3
 ```
-
 # Usage
 
 | **Token** | **Equivalent** |
@@ -22,7 +19,7 @@ pip install -r requirements.txt \
 |   [A-z]   |    Variable    |
 
 ```python
-from boolean import Boolean
+from balg.boolean import Boolean
 booleanObject = Boolean()
 ```
 1. To generate an expression's truth table:

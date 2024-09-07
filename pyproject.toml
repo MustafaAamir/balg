@@ -1,23 +1,28 @@
 [project]
 name = "balg"
-version = "0.0.1"
+version = "0.0.3"
 authors = [
     { name="Mustafa Aamir", email="mustafa.290101@gmail.com"},
 ]
 description = "A boolean algebra toolkit to: evaluate expressions, truth tables, and produce logic diagrams"
 readme = "README.md"
 requires-python = ">=3.12"
+license = {file ="LICENSE"}
+keywords = ["boolean", "algebra", "truth table", "logic", "logic diagram"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+]
+dependencies = [
+    "graphviz"
 ]
 
 [project.urls]
 Homepage = "https://github.com/MustafaAamir/balg"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/balg_MustafaAamir"]
+packages = ["src/balg"]
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
