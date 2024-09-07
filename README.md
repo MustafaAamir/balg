@@ -63,11 +63,13 @@ booleanObject.tt_to_dg(variables, minterms, file_name, directory, format)
 
 # Example Diagrams
 
+((A & B) & C) + (~C)
 ![logic_diagram](https://github.com/user-attachments/assets/5142ee73-0c51-4bcd-9730-0a33129cf72f)
 
+(A & B) + (~(A & B) & ~C) + (C & B)
 ![logic_diagram](https://github.com/user-attachments/assets/ae681531-7076-445b-be9f-41bf98dff005)
 
-Other diagrams can be found in `examples/`
+Other diagrams can be found in `diagrams/`
 
 # Explanation of the Quine-McCluskey Algorithm
 This section deals with converting a given truth table to a minimized boolean expression using the [Quine-McCluskey algorithm](https://en.wikipedia.org/wiki/Quine%E2%80%93McCluskey_algorithm) and producing a logic diagram.
