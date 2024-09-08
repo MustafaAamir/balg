@@ -26,7 +26,7 @@ class BooleanExpression:
     def __init__(self, expression: str):
         self.expression: str = expression
         # isolates single character variables from expression and sorts them alphabetically
-        self.variables: List[str] = sorted(set(re.findall(r'\b[A-Za-z]\b', expression)))
+        self.variables: List[str] = sorted(set(re.findall(r'\b[A-Za-z10]\b', expression)))
         self.postfix = self.to_postfix(expression)
         self.minterms = []
 
@@ -35,7 +35,7 @@ class BooleanExpression:
             precedence = {'~': 3, '&': 2, '+': 1, '(': 0, '^': 2}
             stack = []
             postfix = []
-            tokens = re.findall(r'\b[A-Za-z]\b|\&|\+|\~|\^|[\(\)]', infix)
+            tokens = re.findall(r'\b[A-Za-z01]\b|\&|\+|\~|\^|[\(\)]', infix)
             for token in tokens:
                 if token in self.variables:
                     postfix.append(token)
@@ -98,6 +98,10 @@ class BooleanExpression:
         minth_term = 0
         for values in product([False, True], repeat=len(self.variables)):
             row: Dict[str, bool] = dict(zip(self.variables, values))
+            if row.get('1', False):
+                row['1'] = True
+            if row.get('0', False):
+                row['0'] = False
             result: bool = self.evaluate(row)
             if int(result) != 0:
                 self.minterms.append(minth_term)

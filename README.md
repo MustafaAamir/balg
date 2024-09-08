@@ -69,13 +69,29 @@ ret = booleanObject.expr_cmp(expression_list) # returns True
 simplified_expr: str = booleanObject.expr_simplify("~(A) + ~(B)")
 ```
 
+7. To generate random expressions:
+```python
+#generating a single expression
+expression: str = boolean.generate_expression(max_depth=4, max_identifiers=5)
+
+#generating multiple expressions
+expression: List[str] = boolean.generate_expressions(max_depth=4, max_identifiers=5, count=100)
+
+#max_depth refers to nesting depth:
+expression = "A" #nesting_depth = 0
+expression = "(((4)))"  #nesting_depth = 3
+
+#max_identifiers refers to the number of identifiers allowed in an expression
+expression = "A + B + C" # has 3 identifiers
+```
+
 # Example Diagrams
 
-((A & B) & C) + (~C)
+## ((A & B) & C) + (~C)
 
 ![logic_diagram](https://github.com/user-attachments/assets/5142ee73-0c51-4bcd-9730-0a33129cf72f)
 
-(A & B) + (~(A & B) & ~C) + (C & B)
+## (A & B) + (~(A & B) & ~C) + (C & B)
 
 ![logic_diagram](https://github.com/user-attachments/assets/ae681531-7076-445b-be9f-41bf98dff005)
 
@@ -190,6 +206,7 @@ This section deals with converting a given truth table to a minimized boolean ex
 class TruthTableSynthesizer(variables: List[str], minterms: List[int])
 class BooleanExpression(expression: str)
 class Boolean()
+class BooleanExpressionGenerator(max_identifiers: int = 5, max_depth: int = 5)
 ```
 ```python
 TruthTableSynthesizer.decimal_to_binary(num: int) -> str
@@ -207,12 +224,17 @@ BooleanExpression.tt() -> List[Tuple[Dict[str, bool], bool]]
 BooleanExpression.fmt_tt() -> str
 BooleanExpression.generate_logic_diagram() -> graphviz.Digraph
 
+BooleanExpressionGenerator.generate_expression() -> str
+BooleanExpressionGenerator.generate_expressions(number: int = 1) -> List[str]
+
 Boolean.expr_to_tt(input_expression: str) -> str
 Boolean.tt_to_expr(variables: List[str], minterms: List[int]) -> str
 Boolean.tt_to_dg(variables: List[str], minterms: List[int], file: str | None = None, directory: str | None = None, format: str = "png") -> str
 Boolean.expr_to_dg(input_expression: str, file: str | None = None, directory: str | None = None, format: str = "png") -> str
 Boolean.expr_simplify(input_expression: str) -> str
 Boolean.expr_cmp(expressions: List[str]) -> bool
+Boolean.generate_expression(max_identifiers: int=5, max_depth: int=4) -> str
+Boolean.generate_expressions(max_identifiers: int=5, max_depth: int=4, number: int) -> List[str]
 ```
 
 #### TODO

@@ -1,10 +1,10 @@
 [project]
 name = "balg"
-version = "0.0.4"
+version = "0.0.6"
 authors = [
     { name="Mustafa Aamir", email="mustafa.290101@gmail.com"},
 ]
-description = "A boolean algebra toolkit to: evaluate expressions, truth tables, and produce logic diagrams"
+description = "A boolean algebra toolkit to evaluate expressions, truth tables, and produce logic diagrams"
 readme = "README.md"
 requires-python = ">=3.12"
 license = {file ="LICENSE"}

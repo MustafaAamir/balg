@@ -1,5 +1,6 @@
 from .synthesizer import TruthTableSynthesizer
 from .expression  import BooleanExpression
+from .generator   import BooleanExpressionGenerator
 from typing import List
 
 class Boolean:
@@ -25,10 +26,12 @@ class Boolean:
                  format: str = "png" ):
         expr = self.tt_to_expr(variables, minterms)
         self.expr_to_dg(expr, filename, directory, format)
+
     def expr_cmp(self, expressions: List[str]) -> bool:
         minterms: List[List[int]] = []
         for expression in expressions:
-            exprObj = BooleanExpression(expression)
+            simplified: str = self.expr_simplify(expression)
+            exprObj = BooleanExpression(simplified)
             _ = exprObj.tt()
             minterms.append(exprObj.minterms)
 
@@ -38,3 +41,12 @@ class Boolean:
         expressionObj = BooleanExpression(expr)
         _ = expressionObj.tt()
         return self.tt_to_expr(expressionObj.variables, expressionObj.minterms)
+
+    def generate_expression(self, max_identifiers: int = 5, nesting_depth: int=4) -> str:
+        generatorObj = BooleanExpressionGenerator(max_identifiers, nesting_depth)
+        return generatorObj.generate_expression()
+
+    def generate_expressions(self, max_identifiers: int = 5, nesting_depth: int=4, count: int=1) -> List[str]:
+        generatorObj = BooleanExpressionGenerator(nesting_depth, max_identifiers)
+        return generatorObj.generate_expressions(count)
+
