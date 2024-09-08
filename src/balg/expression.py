@@ -28,6 +28,7 @@ class BooleanExpression:
         # isolates single character variables from expression and sorts them alphabetically
         self.variables: List[str] = sorted(set(re.findall(r'\b[A-Za-z]\b', expression)))
         self.postfix = self.to_postfix(expression)
+        self.minterms = []
 
     def to_postfix(self, infix: str) -> List[str]:
         try:
@@ -75,7 +76,7 @@ class BooleanExpression:
 
         return stack[0]
 
-    def truth_table(self) -> List[Tuple[Dict[str, bool], bool]]:
+    def tt(self) -> List[Tuple[Dict[str, bool], bool]]:
         table: List[Tuple[Dict[str, bool], bool]] = []
         '''
         input : A and B
@@ -93,17 +94,20 @@ class BooleanExpression:
 
         row = dict([("A", False), ("B", True)])
         row = {'A': False, 'B': True}
-        therefore, row is a dictionary of variables with a boolean key.
         '''
+        minth_term = 0
         for values in product([False, True], repeat=len(self.variables)):
             row: Dict[str, bool] = dict(zip(self.variables, values))
             result: bool = self.evaluate(row)
+            if int(result) != 0:
+                self.minterms.append(minth_term)
             table.append((row, result))
+            minth_term += 1
         return table
 
-    def tt(self) -> str:
+    def fmt_tt(self) -> str:
         output_str = ""
-        table = self.truth_table()
+        table = self.tt()
         header = ' | '.join(self.variables + ['Res'])
         output_str += header
         output_str += "\n" + ('-' * len(header)) + "\n"

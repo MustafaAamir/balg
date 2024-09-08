@@ -1,5 +1,4 @@
 from itertools import combinations
-from typing import List, Set, Tuple, Dict
 
 '''
 initialize variables and minterms

@@ -58,15 +58,28 @@ format: str = "png"
 booleanObject.tt_to_dg(variables, minterms, file_name, directory, format)
 ```
 
+5. To assert equality for expressions
+```python
+expressions_list = ["(A & ~B) + (~A & B)", "(A ^ B)", "(A + B) & ~(A & B)"]
+ret = booleanObject.expr_cmp(expression_list) # returns True
+```
+
+6. To simplify expressions (ambiguous):
+```python
+simplified_expr: str = booleanObject.expr_simplify("~(A) + ~(B)")
+```
+
 # Example Diagrams
 
 ((A & B) & C) + (~C)
+
 ![logic_diagram](https://github.com/user-attachments/assets/5142ee73-0c51-4bcd-9730-0a33129cf72f)
 
 (A & B) + (~(A & B) & ~C) + (C & B)
+
 ![logic_diagram](https://github.com/user-attachments/assets/ae681531-7076-445b-be9f-41bf98dff005)
 
-Other diagrams can be found in `diagrams/`
+Other diagrams can be found in the `diagrams/` directory
 
 # Explanation of the Quine-McCluskey Algorithm
 This section deals with converting a given truth table to a minimized boolean expression using the [Quine-McCluskey algorithm](https://en.wikipedia.org/wiki/Quine%E2%80%93McCluskey_algorithm) and producing a logic diagram.
@@ -165,27 +178,19 @@ This section deals with converting a given truth table to a minimized boolean ex
               |         ~(ABC) + BC + AB                |
               +-----------------------------------------+
 
-
-
 ```
 
 # Tips
-1. Use parentheses when the order of operations are ambiguous.
+1. Use parentheses when the order of operations is ambiguous.
 2. The precedence is as follows, starting from the highest: NOT -> OR -> (AND, XOR)
-3. Modify `BooleanExpression.tt` to produce markdown tables for a better UI
 
 # Documentation (for developers)
 
 ``` python
 class TruthTableSynthesizer(variables: List[str], minterms: List[int])
-```
-```python
 class BooleanExpression(expression: str)
-```
-```python
 class Boolean()
 ```
-
 ```python
 TruthTableSynthesizer.decimal_to_binary(num: int) -> str
 TruthTableSynthesizer.combine_implicants(implicants: List[Set[str]]) -> Set[str]
@@ -198,13 +203,26 @@ TruthTableSynthesizer.synthesize() -> str
 
 BooleanExpression.to_postfix(inifx: str) -> List[str]
 BooleanExpression.evaluate(values: Dict[str, bool]) -> bool
-BooleanExpression.truth_table() -> List[Tuple[Dict[str, bool], bool]]
-BooleanExpression.tt() -> str
+BooleanExpression.tt() -> List[Tuple[Dict[str, bool], bool]]
+BooleanExpression.fmt_tt() -> str
 BooleanExpression.generate_logic_diagram() -> graphviz.Digraph
 
 Boolean.expr_to_tt(input_expression: str) -> str
 Boolean.tt_to_expr(variables: List[str], minterms: List[int]) -> str
 Boolean.tt_to_dg(variables: List[str], minterms: List[int], file: str | None = None, directory: str | None = None, format: str = "png") -> str
 Boolean.expr_to_dg(input_expression: str, file: str | None = None, directory: str | None = None, format: str = "png") -> str
+Boolean.expr_simplify(input_expression: str) -> str
+Boolean.expr_cmp(expressions: List[str]) -> bool
 ```
+
+#### TODO
+0. Optimize functions
+0.5. LaTeX interface
+1. NAND, NOR, XNOR
+2. Implication (X -> Y) and bi-implication (X <-> Y)
+4. Add support for constants (1, 0)
+5. Implement functional completeness testing
+6. ~Expression comparison by comparing minterms (grammar agnostic)~
+7. (improbable) implement [Quantum Gates](https://en.wikipedia.org/wiki/Quantum_logic_gate#:~:text=Quantum%20logic%20gates%20are%20the,are%20for%20conventional%20digital%20circuits.&text=Unlike%20many%20classical%20logic%20gates,computing%20using%20only%20reversible%20gates.)
+8. (improbable) potential integration with Verilog systems
 
