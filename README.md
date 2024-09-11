@@ -1,4 +1,4 @@
-# Boolean Algebra Toolkit
+# (B)oolean (Algebra) toolkit for python
 
 - Truth Table to Boolean Expression and Logic Diagram Generator
 - Boolean Expression Evaluator and Truth Table Generator
@@ -6,7 +6,7 @@
 # Installation
 
 ```bash
-pip install balg
+pip install balg==0.0.6
 ```
 # Usage
 
