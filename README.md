@@ -1,7 +1,7 @@
 # (B)oolean (Algebra) toolkit for python
 
 
-![BalgPoster_ManimCE_v0 18 1](https://github.com/user-attachments/assets/766a5aa0-0173-4453-b89c-9c7bc7993efd)
+![BalgPoster_ManimCE_v0 18 1](https://github.com/user-attachments/assets/8fcd383c-b52f-4884-b375-32560b495249)
 
 
 # Installation
