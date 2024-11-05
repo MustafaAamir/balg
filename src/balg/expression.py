@@ -23,7 +23,25 @@ parse postfix representation and generate logic diagram
 '''
 
 class BooleanExpression:
+    """
+    A class to represent and manipulate Boolean expressions.
+
+    This class provides functionality to convert infix Boolean expressions to postfix notation,
+    evaluate expressions, generate truth tables, and create logic diagrams.
+
+    Attributes:
+        expression (str): The original Boolean expression in infix notation.
+        variables (List[str]): A sorted list of variables in the expression.
+        postfix (List[str]): The expression converted to postfix notation.
+        minterms (List[int]): A list to store the minterms of the expression.
+    """
     def __init__(self, expression: str):
+        """
+        Initializes the BooleanExpression with the given expression.
+
+        Args:
+            expression (str): The Boolean expression in infix notation.
+        """
         self.expression: str = expression
         # isolates single character variables from expression and sorts them alphabetically
         self.variables: List[str] = sorted(set(re.findall(r'\b[A-Za-z10]\b', expression)))
@@ -31,6 +49,19 @@ class BooleanExpression:
         self.minterms = []
 
     def to_postfix(self, infix: str) -> List[str]:
+        """
+        Converts the infix Boolean expression to postfix notation.
+
+        Args:
+            infix (str): The Boolean expression in infix notation.
+
+        Returns:
+            List[str]: The expression in postfix notation.
+
+        Raises:
+            SystemExit: If the expression is invalid.
+        """
+
         try:
             precedence = {'~': 3, '&': 2, '+': 1, '(': 0, '^': 2}
             stack = []
@@ -58,6 +89,15 @@ class BooleanExpression:
             exit(0)
 
     def evaluate(self, values: Dict[str, bool]) -> bool:
+        """
+        Evaluates the Boolean expression for given variable values.
+
+        Args:
+            values (Dict[str, bool]): A dictionary mapping variables to their Boolean values.
+
+        Returns:
+            bool: The result of evaluating the expression.
+        """
         stack: List[bool] = []
         for token in self.postfix:
             if token in self.variables:
@@ -77,6 +117,13 @@ class BooleanExpression:
         return stack[0]
 
     def tt(self) -> List[Tuple[Dict[str, bool], bool]]:
+        """
+        Generates the truth table for the Boolean expression.
+
+        Returns:
+            List[Tuple[Dict[str, bool], bool]]: A list of tuples, each containing a dictionary
+            of variable assignments and the corresponding result.
+        """
         table: List[Tuple[Dict[str, bool], bool]] = []
         '''
         input : A and B
@@ -110,6 +157,12 @@ class BooleanExpression:
         return table
 
     def fmt_tt(self) -> str:
+        """
+        Formats the truth table as a string.
+
+        Returns:
+            str: A formatted string representation of the truth table.
+        """
         output_str = ""
         table = self.tt()
         header = ' | '.join(self.variables + ['Res'])
