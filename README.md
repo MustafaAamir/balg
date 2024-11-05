@@ -1,4 +1,3 @@
-# (B)oolean (Algebra) toolkit for python
 
 
 ![BalgPoster_ManimCE_v0 18 1](https://github.com/user-attachments/assets/8fcd383c-b52f-4884-b375-32560b495249)
