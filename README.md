@@ -1,7 +1,8 @@
 # (B)oolean (Algebra) toolkit for python
 
-- Truth Table to Boolean Expression and Logic Diagram Generator
-- Boolean Expression Evaluator and Truth Table Generator
+
+![BalgPoster_ManimCE_v0 18 1](https://github.com/user-attachments/assets/766a5aa0-0173-4453-b89c-9c7bc7993efd)
+
 
 # Installation
 
